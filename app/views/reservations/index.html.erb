@@ -1,0 +1,97 @@
+<h1>利用状況確認</h1>
+<% store_location %>
+<p id="border"></p>
+
+<p class="border"><p>
+
+
+      <head>
+           <script type="text/javascript">
+            function ChangeTab(tabname) {
+            // 全部消す
+            document.getElementById('tab1').style.display = 'none';
+            document.getElementById('tab2').style.display = 'none';
+            document.getElementById('tab3').style.display = 'none';
+            document.getElementById('tab4').style.display = 'none';
+
+             // 指定箇所のみ表示
+             document.getElementById(tabname).style.display = 'block';
+            }
+            </script>
+          
+      </head> 
+         
+    <div class="tabbox">
+         <p class="tabs">
+           <a href="#tab1" class="tab1" onclick="ChangeTab('tab1'); return false;">貸出中</a>
+           <a href="#tab2" class="tab2" onclick="ChangeTab('tab2'); return false;">予約中</a>
+           <a href="#tab3" class="tab3" onclick="ChangeTab('tab3'); return false;">履歴</a>
+           <a href="#tab4" class="tab4" onclick="ChangeTab('tab4'); return false;">受け取り可</a>
+         </p>
+     <div id="tab1" class="tab">
+        <div class="list">
+          <table border="1">
+          <tr>
+            <th>reservation_id</th><th>member_id</th><th>library_id</th><th>book_id</th>
+          </tr>
+          </table>
+         </div>
+     </div>
+     <div id="tab2" class="tab">
+        <div class="list">
+        <table border="1">
+        <tr>
+          <th>reservation_id</th><th>member_id</th><th>library_id</th><th>book_id</th>
+        </tr>
+        <% @reservequeue.each do |res| %>
+        <tr>
+          <td><%= res.reservation_id %></td>
+          <td><%= res.member_id %></td>
+          <td><%= res.library_id %></td>
+          <td><%= res.book_id %></td>
+        </tr>
+        <% end %>
+        </table>
+        </div>
+     </div>
+
+     <div id="tab3" class="tab">
+        <div class="list">
+<table border="1">
+<tr>
+  <th>book_id</th><th>member_id</th><th>lend_date</th><th>return_date</th><th>library_id</th>
+</tr>
+<% @reservations.each do |reserve| %>
+<tr>
+  <td><%= reserve.book_id %></td>
+  <td><%= reserve.member_id %></td>
+  <td><%= reserve.lend_date %></td>
+  <td><%= reserve.return_date %></td>
+  <td><%= reserve.library_id %></td>
+</tr>
+<% end %>
+</table>
+        </div>
+     </div>
+<div id="tab4" class="tab">
+        <div class="list">
+          <table border="1">
+          <tr>
+            <th>reservation_id</th><th>member_id</th><th>library_id</th><th>book_id</th>
+          </tr>
+          <% @availablequeue.each do |a| %>
+          <tr>
+            <td><%= a.reservation_id %></td>
+            <td><%= a.member_id %></td>
+            <td><%= a.library_id %></td>
+            <td><%= a.book_id %></td>
+          </tr>
+          <% end %>
+          </table>
+         </div>
+     </div>
+  </div>
+  <script type="text/javascript">
+   // デフォルトのタブを選択
+    ChangeTab('tab1');
+  </script>

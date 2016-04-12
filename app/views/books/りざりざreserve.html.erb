@@ -1,0 +1,28 @@
+<% store_location %>
+
+
+<h1>予約申し込み</h1>
+<p class="border"></p>
+
+<%= image_tag @book.items[0].get('SmallImage/URL'), {:style => 'border: none;'} %>
+<h2><%= @book.items[0].get('ItemAttributes/Title')%></h2>
+<ul>
+  <li><%= @book.items[0].get('ItemAttributes/Publisher')%></li>
+  <li><%= @book.items[0].get('ItemAttributes/PublicationDate')%></li>
+  <% isbn13 = isbn10_to_13(@book.items[0].get('ItemAttributes/ISBN')) %>
+  <li><%= isbn13 %></li>
+</ul>
+
+<h1>予約状況</h1>
+<table border="1">
+  <tr>
+    <th>所蔵館</th>
+    <th>状態</th>
+    <th>受け取り館</th>
+  </tr>
+  <tr>
+    <th><%= @lib_id %>
+    <th>
+    <th><%= select_tag :library_id, options_for_select(@lib_for_options),:prompt => "受け取り館を選択してください"  %>
+  </tr>
+</table>

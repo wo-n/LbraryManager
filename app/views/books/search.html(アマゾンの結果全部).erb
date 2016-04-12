@@ -1,0 +1,40 @@
+<h1>蔵書検索</h1>
+<p class="border"></p>
+<div>
+  <%= form_tag :search_books,method: :get do %>
+    <%= text_field_tag 'keyword', @keyword %>
+    <%= submit_tag '検索' %>
+  <% end %>
+</div>
+
+<div>
+  <% if @res.present? %>
+    <table border="3">
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>ISBN</th>
+      </th>
+      <% @res.items.each do |i| %>
+        <% isbn13 = isbn10_to_13(i.get('ItemAttributes/ISBN')) %>
+        <tr>
+          <th>
+          <%= link_to i.get('DetailPageURL') do %>
+              <%= image_tag i.get('SmallImage/URL'), {:style => 'border: none;'} %>
+            <% end %>
+          </th>
+
+          <th><div style="width: 150px; float: left;"><%= i.get('ItemAttributes/Title') %></div></th>
+          <th><div style="width: 150px; float: left;"><%= i.get('ItemAttributes/Author') %></div></th>
+          <% if isbn13 >= 1000000000000 %>
+          <th><div style="width: 150px; float: left;"><%= isbn13 %></div></th>
+          <% else %>
+          <th>not found</th>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+

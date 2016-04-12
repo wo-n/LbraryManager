@@ -1,0 +1,14 @@
+# coding: utf-8
+<% store_location %>
+<% options = [] %>
+<% @libraries.each do |lib| %>
+	<% options << ["#{lib.name}", lib.id] %>
+<% end %>
+
+<h1>受け取り可通知</h1>
+<p class="border"></p>
+<%= form_tag :rtoaUpdate_reservations, method: :put do %>
+	<%= text_field_tag 'isbn', '' %>
+	<%= select_tag(:library_id, options_for_select(options), :prompt => "本の所蔵館") %>
+	<%= submit_tag '通知する' %>
+<% end %>

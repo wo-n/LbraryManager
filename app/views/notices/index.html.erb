@@ -1,0 +1,12 @@
+<% store_location %>
+<h1>お知らせ一覧</h1>
+<p class="border"></p>
+
+<table border="1">
+<% @notices.each do |news| %>
+  <tr>
+    <td><h3><%= news.title %></h3>
+        <p><%= news.body%> <%= link_to '続きを読む', notice_path(news.id)%><p></td>
+</tr> 
+<% end %>
+</table>

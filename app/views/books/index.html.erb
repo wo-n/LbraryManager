@@ -1,0 +1,28 @@
+<% store_location %>
+<h1>蔵書一覧</h1>
+<p class="border"></p>
+
+<%= form_tag :search_books,method: :get do %>
+    <%= text_field_tag 'keyword', @keyword %>
+    <%= submit_tag '検索' %>
+  <% end %>
+
+
+  <table border="1">
+  <tr>
+　　  <th>ID</th><th>ISBN</th><th>冊数</th><th>所蔵館</th><th></th>
+  </tr>
+<% @books.each do |book| %>
+  <tr>
+    <td><%= book.id %></td>
+    <td><%= book.isbn %></td>
+    <td><%= book.quantity %></td>
+    <td><%= book.library_id %></td>
+    <%= form_tag book_path(book.isbn), method: :get do %>
+    <% text_field_tag 'isbn', book.isbn %>
+    <td><%= submit_tag '詳細' %></td>
+    <% end %>
+  </tr>
+<% end %>
+  </table>
+
